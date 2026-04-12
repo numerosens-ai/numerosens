@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NumeroSens — Coaching Numerologic 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --deep: #0e0e0e;
+    --burgundy: #6B1A2A;
+    --burgundy-light: #8B2235;
+    --teal: #1A6B5A;
+    --teal-light: #2A8B72;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --white: #F5F0E8;
+    --muted: #7A7570;
+    --border: rgba(201,168,76,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* TYPOGRAPHY */
+  h1, h2, h3 { font-weight: 300; letter-spacing: 0.02em; }
+
+  .mono { font-family: 'Space Mono', monospace; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(107,26,42,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(26,107,90,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .brand-mark {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    opacity: 0.8;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .hero-eyebrow {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.25em;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeIn 1.2s ease forwards;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 22px);
+    color: rgba(245,240,232,0.6);
+    max-width: 560px;
+    font-weight: 300;
+    margin-bottom: 64px;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 0 auto;
+    animation: fadeIn 1s ease 0.8s both;
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 120px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  h2 {
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.1;
+    margin-bottom: 40px;
+  }
+
+  h2 em { font-style: italic; color: var(--gold-light); }
+
+  /* VIZIUNE */
+  .viziune {
+    border-left: 1px solid var(--burgundy-light);
+    padding-left: 40px;
+    margin: 60px 0;
+  }
+
+  .viziune p {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.85);
+  }
+
+  .viziune p + p { margin-top: 24px; }
+
+  /* PRODUCTS */
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 64px;
+  }
+
+  @media (max-width: 700px) {
+    .products-grid { grid-template-columns: 1fr; }
+  }
+
+  .product-card {
+    background: var(--deep);
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+  }
+
+  .product-card:hover { transform: translateY(-4px); }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .product-card.primary::before {
+    background: linear-gradient(135deg, rgba(107,26,42,0.15) 0%, transparent 60%);
+  }
+
+  .product-card.secondary::before {
+    background: linear-gradient(135deg, rgba(26,107,90,0.1) 0%, transparent 60%);
+  }
+
+  .product-card:hover::before { opacity: 1; }
+
+  .product-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .product-number::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  .product-card h3 {
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .product-tagline {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .product-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 42px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .product-price-note {
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    margin-bottom: 40px;
+  }
+
+  .product-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .product-includes li {
+    font-size: 15px;
+    color: rgba(245,240,232,0.7);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .product-includes li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal-light);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    top: 2px;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--burgundy-light);
+    color: var(--burgundy-light);
+    margin-bottom: 24px;
+  }
+
+  /* PROCESS */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 64px;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 40px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .process-step:first-child { border-top: 1px solid var(--border); }
+
+  .step-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 48px;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    padding-top: 4px;
+  }
+
+  .step-content h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  .step-content p {
+    font-size: 16px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.7;
+  }
+
+  .step-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* PENTRU CINE */
+  .for-who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 64px;
+  }
+
+  @media (max-width: 700px) {
+    .for-who-grid { grid-template-columns: 1fr; }
+  }
+
+  .for-who-block {
+    background: var(--deep);
+    padding: 48px 40px;
+  }
+
+  .for-who-block h3 {
+    font-size: 14px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.3em;
+    margin-bottom: 32px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .for-who-block.yes h3 { color: var(--teal-light); }
+  .for-who-block.no h3 { color: var(--burgundy-light); }
+
+  .for-who-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .for-who-list li {
+    font-size: 16px;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.5;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .for-who-block.yes .for-who-list li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--teal-light);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .for-who-block.no .for-who-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--burgundy-light);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 160px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(107,26,42,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(36px, 6vw, 72px);
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cta-sub {
+    font-size: 18px;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 64px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 20px 40px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--burgundy);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--burgundy-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(245,240,232,0.2);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* CONTACT */
+  .contact-block {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-top: 48px;
+  }
+
+  .contact-block a {
+    color: var(--teal-light);
+    text-decoration: none;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* DIVIDERS */
+  .ornament {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--border);
+    font-size: 12px;
+    letter-spacing: 0.5em;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* NUMEROLOGIC BADGE */
+  .num-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-top: 16px;
+  }
+
+  .num-badge span {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* FULL-WIDTH WRAPPER */
+  .full-width {
+    max-width: 100%;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 0;
+    padding: 0;
+  }
+
+  .full-width > section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    border: 1px solid var(--border);
+    padding: 60px;
+    text-align: center;
+    margin: 80px 0;
+    position: relative;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 80px;
+    color: var(--gold);
+    opacity: 0.3;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+
+  .quote-block p {
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.8);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="brand-mark">NumeroSens — 2026</div>
+  <div class="hero-eyebrow">Coaching Numerologic</div>
+  <h1>Funcționează pe<br><em>frecvența ta reală.</em></h1>
+  <p class="hero-sub">Nu răspunsuri rapide. Nu soluții magice. Claritate, direcție și autonomie — construite în ritmul tău.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- VIZIUNE -->
+<section>
+  <div class="section-label">Viziunea</div>
+  <h2>Cifrele nu consolează.<br><em>Informează.</em></h2>
+
+  <div class="viziune">
+    <p>NumeroSens nu este despre a-ți spune ce să faci. Este despre a te ajuta să vezi limpede ce ți se potrivește energetic, strategic și uman.</p>
+    <p>Rolul meu nu este să creez dependență. Este să construiesc claritate suficient de profundă încât să nu mai ai nevoie de mine.</p>
+    <p>Asta înseamnă transformare reală.</p>
+  </div>
+</section>
+
+<div class="ornament">— — —</div>
+
+<!-- PRODUSE -->
+<section>
+  <div class="section-label">Servicii</div>
+  <h2>Două puncte<br>de <em>intrare.</em></h2>
+
+  <div class="products-grid">
+
+    <!-- Ședință -->
+    <div class="product-card secondary">
+      <div class="badge" style="border-color: var(--teal-light); color: var(--teal-light);">Ofertă luna aniversară</div>
+      <div class="product-number">01 / Ședință</div>
+      <h3>Ședință Individuală</h3>
+      <p class="product-tagline">O hartă clară a momentului prezent</p>
+      <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;">
+        <div class="product-price">369 lei</div>
+        <div style="font-family:'Space Mono',monospace; font-size:18px; color:var(--muted); text-decoration:line-through;">600 lei</div>
+      </div>
+      <div class="product-price-note">SESIUNE UNICĂ · ONLINE · PÂNĂ LA 30 APRILIE</div>
+      <ul class="product-includes">
+        <li>Numerogramă completă personalizată</li>
+        <li>Identificarea resurselor și blocajelor actuale</li>
+        <li>Recomandări energetice și strategice</li>
+        <li>Înregistrare Zoom pentru revizitare</li>
+        <li>Răspuns în 48h la programare</li>
+      </ul>
+      <div style="margin-top:24px; padding:16px; border:1px solid rgba(26,107,90,0.3); font-size:13px; color:var(--muted); line-height:1.6;">
+        <span style="font-family:'Space Mono',monospace; font-size:10px; color:var(--teal-light); letter-spacing:0.2em;">DIN MAI 2026</span><br>
+        Prețul revine la 600 lei.
+      </div>
+      <div class="num-badge" style="margin-bottom:20px;">
+        <span>9</span> vibrație numerologică
+      </div>
+      <a href="https://cal.com/sense-architect-numerosens/sedinta-individuala-369-ron" target="_blank" style="display:block; text-align:center; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; padding:14px; border:1px solid var(--teal-light); color:var(--teal-light); text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(26,107,90,0.15)'" onmouseout="this.style.background='transparent'">
+        Rezervă — 369 lei →
+      </a>
+    </div>
+
+    <!-- Program -->
+    <div class="product-card primary">
+      <div class="badge">Recomandat</div>
+      <div class="product-number">02 / Program</div>
+      <h3>Coaching Numerologic<br>90 de Zile</h3>
+      <p class="product-tagline">Transformare reală în trei luni</p>
+      <div class="product-price">2.550 lei</div>
+      <div class="product-price-note">UN TRIMESTRU COMPLET · 5 LOCURI</div>
+      <ul class="product-includes">
+        <li>3 ședințe lunare individuale Zoom</li>
+        <li>Numerosfat săptămânal — în fiecare luni</li>
+        <li>2 mini-consultări vocale WhatsApp / lună</li>
+        <li>Numerograma anului și calibrare trimestrială</li>
+        <li>Suport continuu 24—72h răspuns</li>
+      </ul>
+      <div class="num-badge" style="margin-bottom:20px;">
+        <span>3</span> vibrație numerologică
+      </div>
+      <a href="https://cal.com/sense-architect-numerosens/sedinta-de-aliniere" target="_blank" style="display:block; text-align:center; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; padding:14px; border:1px solid var(--burgundy-light); color:var(--burgundy-light); text-decoration:none; transition:all 0.25s; margin-bottom:10px;" onmouseover="this.style.background='rgba(107,26,42,0.15)'" onmouseout="this.style.background='transparent'">
+        Începe cu ședința de aliniere →
+      </a>
+      <a href="https://cal.com/sense-architect-numerosens/program-90-zile-2.550-ron" target="_blank" style="display:block; text-align:center; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; padding:12px; color:var(--muted); text-decoration:none; border:1px solid rgba(122,115,112,0.2); transition:all 0.25s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--muted)'">
+        Sau rezervă direct programul →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section>
+  <div class="quote-block">
+    <p>Nouă este cifra transformării, a finalizării unui ciclu și a trecerii la nivelul următor. De aceea procesul NumeroSens este construit în containere de 90 de zile.</p>
+  </div>
+</section>
+
+<!-- PROCESUL -->
+<div class="full-width">
+  <section>
+    <div class="section-label">Procesul</div>
+    <h2>Cum arată<br><em>90 de zile.</em></h2>
+
+    <div class="process-steps">
+
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-tag">Luna 1 — Fundamentul</div>
+          <h3>Numerograma. Busola. Claritate.</h3>
+          <p>Construim harta ta numerologică completă. Identificăm contextul energetic al anului, direcțiile majore și prioritățile reale. Setăm busola personală — nu pe ce crezi că trebuie să faci, ci pe ce ți se potrivește cu adevărat.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-tag">Luna 2 — Implementare</div>
+          <h3>Decizii concrete. Acțiune aliniată.</h3>
+          <p>Lucrăm o direcție concretă în care ai nevoie de suport — decizii, relații, carieră, ritm personal, blocaje sau proiecte în derulare. Stabilim claritate în acțiune și pași reali.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-tag">Luna 3 — Integrare</div>
+          <h3>Ritmul tău. Fără dependență.</h3>
+          <p>Consolidăm ce s-a schimbat și construim autonomia. Trimestrul este ritmul în care transformarea devine vizibilă, integrată și stabilă. Scopul final: să nu mai ai nevoie de mine.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- SUPORTUL CONTINUU -->
+<section>
+  <div class="section-label">Suport</div>
+  <h2>Ce se întâmplă<br><em>între ședințe.</em></h2>
+
+  <div class="process-steps" style="margin-top: 40px;">
+
+    <div class="process-step">
+      <div class="step-number mono" style="font-size:28px; color: var(--teal-light); opacity:1;">Luni</div>
+      <div class="step-content">
+        <h3>Numerosfatul săptămânal</h3>
+        <p>Mesaj scris, livrat în fiecare luni dimineață, calibrat pe energia ta și pe activările săptămânii. Nu generic. Specific pentru tine, pentru momentul tău.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-number mono" style="font-size:28px; color: var(--teal-light); opacity:1;">15'</div>
+      <div class="step-content">
+        <h3>Mini-consultări vocale WhatsApp</h3>
+        <p>Două pe lună. Mesaje vocale pentru clarificări rapide sau situații urgente. Răspuns în 24 până la 72 de ore.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PENTRU CINE -->
+<section>
+  <div class="section-label">Selecție</div>
+  <h2>Procesul acesta<br><em>nu e pentru toți.</em></h2>
+
+  <div class="for-who-grid">
+    <div class="for-who-block yes">
+      <h3>Este pentru tine dacă</h3>
+      <ul class="for-who-list">
+        <li>Vrei claritate reală în decizii</li>
+        <li>Ai nevoie de direcție și structură</li>
+        <li>Simți că e momentul să schimbi ceva concret</li>
+        <li>Vrei să funcționezi pe frecvența ta autentică</li>
+        <li>Cauți autonomie ghidată, nu dependență</li>
+        <li>Ești pregătit să implementezi, nu doar să asculți</li>
+      </ul>
+    </div>
+
+    <div class="for-who-block no">
+      <h3>Nu este pentru tine dacă</h3>
+      <ul class="for-who-list">
+        <li>Vrei răspunsuri rapide și previziuni fixe</li>
+        <li>Cauți validare, nu transformare</li>
+        <li>Nu ești pregătit să implementezi</li>
+        <li>Vrei magie fără acțiune proprie</li>
+        <li>Aștepți ca lucrurile să se schimbe de la sine</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DE CE NU ANUAL -->
+<section style="padding-top: 0;">
+  <div class="quote-block">
+    <p>Nu ofer programe anuale pentru că te vreau productiv, aliniat și funcțional — indiferent de relația cu mine. Un trimestru este suficient de lung ca să producă schimbare reală, suficient de scurt ca să nu creeze dependență.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="section-label" style="justify-content: center; margin-bottom: 40px;">
+    <span>Pasul următor</span>
+  </div>
+  <h2>Dacă simți că e<br><em>momentul.</em></h2>
+  <p class="cta-sub">Locurile în program sunt limitate. Procesul de 90 de zile începe cu o ședință de aliniere gratuită de 20 de minute.</p>
+
+  <div class="cta-buttons">
+    <a class="btn btn-primary" href="https://cal.com/sense-architect-numerosens/sedinta-de-aliniere" target="_blank">Rezervă ședința de aliniere — Gratuit</a>
+    <a class="btn btn-secondary" href="https://cal.com/sense-architect-numerosens/program-90-zile-2.550-ron" target="_blank">Program 90 zile — 2.550 lei</a>
+  </div>
+
+  <div class="contact-block">
+    <a href="mailto:numerosens@gmail.com">numerosens@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://tiktok.com/@numero_sens">@numero_sens</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">NUMEROSENS</div>
+  <div class="footer-note">Claritate. Ritm. Direcție. Transformare.</div>
+</footer>
+
+</body>
+</html>
